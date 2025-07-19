@@ -22,9 +22,10 @@ gitx-cb() {
   # add main worktree
   git --git-dir="$repo_dir" worktree add main main
 
-  # set upstream branch
-  cd "$repo_name/main"
+  # set upstream branch for main
+  cd "main"
   git branch --set-upstream-to origin/main
+  cd ..
 
   cd ..
 }
