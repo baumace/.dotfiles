@@ -5,7 +5,7 @@ gitx-cb() {
   # pull args
   local remote_url=$1
   local repo_name=$(basename "$remote_url" .git)
-  local repo_dir=$(basename "$remote_url")
+  local repo_dir="$repo_name.git"
 
   # clean
   rm -rf "$repo_name"
