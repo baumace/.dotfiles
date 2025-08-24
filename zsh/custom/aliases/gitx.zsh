@@ -1,7 +1,7 @@
-# gitx-cb: Clone a bare repo, fix fetch config, and add a main branch worktree
-# Usage: gitx-cb <remote-url>
-# Example: gitx-cb git@github.com:user/repo.git
-gitx-cb() {
+# gitx-clone: Clone a bare repo, fix fetch config, and add a main branch worktree
+# Usage: gitx-clone <remote-url>
+# Example: gitx-clone git@github.com:user/repo.git
+gitx-clone() {
   # pull args
   local remote_url=$1
   local repo_name=$(basename "$remote_url" .git)
