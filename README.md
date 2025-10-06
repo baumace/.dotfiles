@@ -7,7 +7,7 @@ These are my personal configuration files for [Neovim](https://neovim.io/) and [
 1. **Clone this repository:**
 
     ```bash
-    git clone https://github.com/baumace/.dotfiles.git ~/.dotfiles
+    git clone git@github.com:baumace/.dotfiles.git ~/.dotfiles
     ```
 
 2. **Symlink config files:**
@@ -50,7 +50,7 @@ These are my personal configuration files for [Neovim](https://neovim.io/) and [
 
     ```bash
     rm -rf ~/.dotfiles
-    git clone https://github.com/baumace/.dotfiles.git ~/.dotfiles
+    git clone git@github.com:baumace/.dotfiles.git ~/.dotfiles
     ```
 
 3. **Re-run the symlink steps above** to ensure everything points to the latest configs.
