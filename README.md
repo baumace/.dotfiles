@@ -1,4 +1,4 @@
-# Dotfiles Setup
+# .dotfiles
 
 These are my personal configuration files for [Neovim](https://neovim.io/) and [zsh](https://www.zsh.org/) (using [Oh My Zsh](https://ohmyz.sh/)).
 
@@ -53,8 +53,14 @@ These are my personal configuration files for [Neovim](https://neovim.io/) and [
     git clone git@github.com:baumace/.dotfiles.git ~/.dotfiles
     ```
 
-3. **Re-run the symlink steps above** to ensure everything points to the latest configs.
-4. **Restart your terminal and Neovim.**
+3. **Re-run symlink commands**
+
+   ```bash
+    rm -rf ~/.config/nvim
+    ln -s ~/.dotfiles/nvim ~/.config/nvim
+    ```
+   
+5. **Restart your terminal and Neovim.**
 
 ---
 
