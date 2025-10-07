@@ -62,6 +62,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # Environment variables
 [[ -f "$HOME/.env.dev" ]] && source "$HOME/.env.dev"
 
-
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# Language servers
+export PATH=$PATH:$HOME/.local/share/language-servers/lua/bin
