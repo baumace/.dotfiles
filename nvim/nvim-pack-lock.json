@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "nvim-lint": {
+      "rev": "9da1fb9",
+      "src": "https://github.com/mfussenegger/nvim-lint"
+    },
+    "nvim-lspconfig": {
+      "rev": "e688b48",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    }
+  }
+}

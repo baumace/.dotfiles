@@ -1,35 +1,43 @@
---  NOTE: I have removed some of the comments as I have read them and do not need to reed them in the future.
---[[
+-- Leader to be space
+vim.g.mapleader = " "
 
-Kickstart Guide:
+-- Line numbers
+vim.o.number = true
+vim.o.relativenumber = true
 
-  See `:help lua-guide` as a reference for how Neovim integrates Lua.
-  - :help lua-guide
+-- Basic remaps
+vim.keymap.set('n', '<leader>ef', ':Ex<CR>') -- Explore files
 
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
+-- Diagnostics remaps
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>d;', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>ds', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.open_float)
 
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
+-- Default tab indents
+vim.o.expandtab = true
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
 
---]]
+-- Plugins
+vim.pack.add({
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
+    { src = 'https://github.com/mfussenegger/nvim-lint' },
+})
 
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- LSP
+vim.lsp.enable({
+    'lua_ls',
+})
 
--- Setting options
-require 'options'
+-- Linter
+require('lint').linters_by_ft = {
+    html = { 'htmlhint' },
+}
 
--- Basic Keymaps
-require 'keymaps'
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    callback = function()
+        require("lint").try_lint()
+    end,
+})
 
--- Install `lazy.nvim` plugin manager
-require 'lazy-bootstrap'
-
--- Configure and install plugins
-require 'lazy-plugins'
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
