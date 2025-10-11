@@ -41,3 +41,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     end,
 })
 
+-- Color scheme
+-- Transparency
+-- NOTE: Must be AFTER color scheme setting
+-- vim.cmd [[
+    -- highlight Normal guibg=NONE ctermbg=NONE
+    -- highlight NormalNC guibg=NONE ctermbg=NONE
+    -- highlight SignColumn guibg=NONE ctermbg=NONE
+    -- highlight VertSplit guibg=NONE ctermbg=NONE
+    -- highlight LineNr guibg=NONE ctermbg=NONE
+    -- highlight EndOfBuffer guibg=NONE ctermbg=NONE
+-- ]]
