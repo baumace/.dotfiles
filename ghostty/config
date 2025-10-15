@@ -51,3 +51,5 @@
 # padding
 window-padding-x = 15
 window-padding-y = 10
+
+background-opacity = 0.95

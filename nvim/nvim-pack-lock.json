@@ -1,5 +1,13 @@
 {
   "plugins": {
+    "neovim": {
+      "rev": "72a04c4",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "nvim": {
+      "rev": "af58927",
+      "src": "https://github.com/catppuccin/nvim"
+    },
     "nvim-lint": {
       "rev": "9da1fb9",
       "src": "https://github.com/mfussenegger/nvim-lint"

@@ -25,11 +25,15 @@ vim.pack.add({
     { src = 'https://github.com/mfussenegger/nvim-lint' },
     { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
+    -- Themes
+    { src = 'https://github.com/catppuccin/nvim' },
+    { src = 'https://github.com/rose-pine/neovim' },
 })
 
 -- LSP
 vim.lsp.enable({
     'lua_ls',
+    'pyright',
 })
 
 -- Linter
@@ -44,6 +48,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 })
 
 -- Color scheme
+vim.cmd.colorscheme "catppuccin-macchiato"
+-- vim.cmd.colorscheme "rose-pine-moon"
+
 -- Transparency NOTE: Must be AFTER color scheme setting
 vim.cmd [[
     highlight Normal guibg=NONE ctermbg=NONE
