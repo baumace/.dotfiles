@@ -48,8 +48,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 })
 
 -- Color scheme
-vim.cmd.colorscheme "catppuccin-macchiato"
--- vim.cmd.colorscheme "rose-pine-moon"
+-- vim.cmd.colorscheme "catppuccin-macchiato"
+vim.cmd.colorscheme "rose-pine-moon"
 
 -- Transparency NOTE: Must be AFTER color scheme setting
 vim.cmd [[
