@@ -27,7 +27,6 @@ vim.pack.add({
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     -- Themes
     { src = 'https://github.com/catppuccin/nvim' },
-    { src = 'https://github.com/rose-pine/neovim' },
 })
 
 -- LSP
@@ -48,8 +47,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 })
 
 -- Color scheme
--- vim.cmd.colorscheme "catppuccin-macchiato"
-vim.cmd.colorscheme "rose-pine-moon"
+vim.cmd.colorscheme "catppuccin-macchiato"
 
 -- Transparency NOTE: Must be AFTER color scheme setting
 vim.cmd [[
