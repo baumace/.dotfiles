@@ -14,6 +14,22 @@ vim.keymap.set('n', '<leader>d;', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>ds', vim.diagnostic.setloclist)
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.open_float)
 
+-- LSP remaps
+vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
+vim.keymap.set('n', '<leader>gb', '<C-o>')
+vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references)
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+
+-- Build remaps
+vim.keymap.set('n', '<leader>b', ':make<CR>')
+vim.keymap.set('n', '<leader>qn', ':cnext<CR>')
+vim.keymap.set('n', '<leader>q;', ':cprev<CR>')
+vim.keymap.set('n', '<leader>qo', ':copen<CR>')
+vim.keymap.set('n', '<leader>qc', ':cclose<CR>')
+
 -- Default tab indents
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
@@ -25,6 +41,8 @@ vim.pack.add({
     { src = 'https://github.com/mfussenegger/nvim-lint' },
     { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
+    { src = 'https://github.com/seblyng/roslyn.nvim' },
+
     -- Themes
     { src = 'https://github.com/catppuccin/nvim' },
 })
@@ -33,6 +51,21 @@ vim.pack.add({
 vim.lsp.enable({
     'lua_ls',
     'pyright',
+})
+
+require('roslyn').setup({
+    config = {
+        filetypes = { 'cs' },
+    },
+})
+
+-- Configure dotnet build for C# files
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'cs',
+    callback = function()
+        vim.opt_local.makeprg = 'dotnet build'
+        vim.opt_local.errorformat = '%f(%l\\,%c): %t%*[^:]: %m'
+    end,
 })
 
 -- Linter
