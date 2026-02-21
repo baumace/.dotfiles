@@ -1,13 +1,12 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 window#waybar {
     background-color: transparent;
     border-radius: 12px;
-    margin: 8px 10px;
     color: #cad3f5;
     transition-property: background-color;
     transition-duration: .5s;
