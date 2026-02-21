@@ -48,6 +48,9 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
+# theme
+theme = Catppuccin Macchiato
+
 # padding
 window-padding-x = 15
 window-padding-y = 10
