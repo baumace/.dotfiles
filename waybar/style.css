@@ -95,6 +95,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#custom-power,
 #mpd {
     padding: 0 10px;
     color: #cad3f5;
@@ -330,6 +331,29 @@ label:focus {
 
 #privacy-item.audio-out {
     background-color: #8aadf4;
+}
+
+#custom-power {
+    background-color: #ed8796;
+    color: #24273a;
+}
+
+menu {
+    background-color: #24273a;
+    border: 1px solid #494d64;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+menuitem {
+    color: #cad3f5;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+menuitem:hover {
+    background-color: #363a4f;
+    color: #c6a0f6;
 }
 
 tooltip {
