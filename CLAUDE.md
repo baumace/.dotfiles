@@ -53,6 +53,7 @@ The repository uses a modular design where each tool has its own directory. Conf
 - LSP configured for Lua (`lua_ls`) and Python (`pyright`)
 - Linting via `nvim-lint` (includes `htmlhint` for HTML)
 - Telescope for fuzzy finding and live grep
+- `nvim-colorizer.lua` for inline CSS color previews
 - Leader key: Space
 - Theme: Catppuccin Macchiato with transparency
 
@@ -61,6 +62,7 @@ The repository uses a modular design where each tool has its own directory. Conf
 - Dwindle layout (tiling), Vim-style navigation (hjkl)
 - Super key as modifier
 - Autostart applications defined at end of config (mako, waybar)
+- `gaps_out` sets the gap between windows and the screen edge (currently `8` on all sides)
 
 **Zsh** (`zsh/.zshrc`):
 - Uses Oh My Zsh framework with `robbyrussell` theme
@@ -68,12 +70,13 @@ The repository uses a modular design where each tool has its own directory. Conf
 - Custom SSH auth socket configuration
 - Editor: `nvim` (local), `vim` (SSH)
 
-**Waybar** (`waybar/config.jsonc` and `waybar/style.css`):
+**Waybar** (`waybar/config.jsonc`, `waybar/style.css`, `waybar/power_menu.xml`):
 - Left: workspaces, scratchpad, media player
-- Center: window title
-- Right: system info (audio, network, CPU, memory, temp, battery, clock, power)
+- Center: clock
+- Right: system info (audio, network, CPU, memory, temp, battery, tray, power)
 - Color-coded thresholds for system metrics
-- Style uses custom classes in CSS for theming
+- Floating bar with pill-shaped modules: `border-radius` on module selectors, screen-edge spacing via `margin-top/left/right` in `config.jsonc` (not CSS)
+- Power button uses a GTK menu (`menu: "on-click"`) with actions defined in `power_menu.xml` and `menu-actions` in config
 
 **Wofi** (`wofi/config` and `wofi/style.css`):
 - Application launcher invoked via `Super+Q`
@@ -115,12 +118,24 @@ Themed tools:
 
 When making theme changes, maintain consistency across all configs.
 
-### GTK CSS Quirks (Wofi / GTK apps)
-When styling wofi or other GTK-based tools, be aware of these pitfalls:
+### GTK CSS Quirks (Wofi / Waybar / GTK apps)
+When styling wofi, waybar, or other GTK-based tools, be aware of these pitfalls:
 
+**General:**
 - **`entry` vs `#entry`**: `entry` (no hash) targets the `GtkEntry` widget type (the search input field). `#entry` (with hash) targets elements with the CSS ID "entry" (wofi result rows). These are different selectors.
 - **Container widgets with default white backgrounds**: GTK containers (`scrolledwindow`, `viewport`, `box`, `eventbox`) inherit white backgrounds from the GTK theme and must be explicitly overridden.
 - **Expanded child entries**: When wofi entries expand to show children, they use GTK container widgets without predictable CSS IDs. The reliable fix is a wildcard rule `* { background-color: transparent; }` combined with explicit restoration of backgrounds that should be opaque (`window`, `#input`, `#entry:selected`).
+- **`text-align` is not valid GTK CSS**: Use padding adjustments instead to achieve visual centering.
+- **Wildcard selectors on tooltips**: Applying `border` or `border-radius` via `tooltip *` creates repeated nested borders on every child element. Style `tooltip` (box) and `tooltip label` (text) separately.
+
+**Waybar-specific:**
+- **CSS `margin` on `window#waybar` has no effect on screen-edge spacing**: Layer shell positioning is controlled by `margin-top`, `margin-left`, `margin-right` in `config.jsonc`, not via CSS.
+- **GTK menu positioning**: The built-in `menu: "on-click"` module property uses `popup_at_pointer()` — the menu always appears at the cursor position, not anchored to the widget. This cannot be changed via CSS.
+- **GTK menu styling**: Use `menu` and `menuitem` / `menuitem:hover` CSS selectors to theme the dropdown.
+- **Trailing spaces in format strings**: A trailing space in `"format": "icon "` creates visual imbalance when combined with symmetric CSS padding. Remove trailing spaces and rely on padding alone.
+- **strftime `%-d` unsupported**: Waybar's fmt library does not support glibc extensions like `%-d` (day without leading zero). Use `%d` instead.
+- **Calendar tooltip requires explicit config block**: In newer waybar versions, `{calendar}` in `tooltip-format` only renders if a `"calendar"` block is present in the clock module config.
+- **Calendar grid alignment requires monospace**: The `<tt>` Pango tag in `tooltip-format` forces monospace rendering, which is required for calendar columns to align. Removing it breaks the grid layout.
 
 ## Dependencies
 
