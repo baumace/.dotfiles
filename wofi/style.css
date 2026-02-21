@@ -1,6 +1,19 @@
 * {
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
+    background-color: transparent;
+}
+
+scrolledwindow,
+viewport,
+box,
+eventbox {
+    background-color: transparent;
+}
+
+window,
+window * {
+    color: #cad3f5;
 }
 
 window {
