@@ -333,10 +333,7 @@ label:focus {
 }
 
 tooltip {
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
     background-color: rgba(36, 39, 58, 0.9);
     border: 1px solid #494d64;
     border-radius: 8px;
-    color: #cad3f5;
 }
