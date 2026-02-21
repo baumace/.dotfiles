@@ -13,7 +13,7 @@
         "custom/media"
     ],
     "modules-center": [
-        "sway/window"
+        "clock"
     ],
     "modules-right": [
         "mpd",
@@ -29,7 +29,6 @@
         "sway/language",
         "battery",
         "battery#bat2",
-        "clock",
         "tray",
         "custom/power"
     ],
@@ -107,8 +106,18 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "{:%B %d  %I:%M %p}",
+        "format-alt": "{:%Y-%m-%d}",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months":   "<span color='#cad3f5'><b>{}</b></span>",
+                "days":     "<span color='#cad3f5'>{}</span>",
+                "weekdays": "<span color='#c6a0f6'><b>{}</b></span>",
+                "today":    "<span color='#ed8796'><b><u>{}</u></b></span>"
+            }
+        }
     },
     "cpu": {
         "format": "{usage}% ",
