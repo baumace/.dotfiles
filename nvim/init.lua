@@ -35,6 +35,16 @@ vim.pack.add({
     { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     { src = 'https://github.com/catppuccin/nvim' },
+    { src = 'https://github.com/NvChad/nvim-colorizer.lua' },
+})
+
+-- Color previews
+require('colorizer').setup({
+    filetypes = { '*' },
+    user_default_options = {
+        css = true,
+        mode = 'background',
+    },
 })
 
 -- LSP

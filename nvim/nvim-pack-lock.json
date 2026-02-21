@@ -8,6 +8,10 @@
       "rev": "af58927",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "nvim-colorizer.lua": {
+      "rev": "338409d",
+      "src": "https://github.com/NvChad/nvim-colorizer.lua"
+    },
     "nvim-lint": {
       "rev": "9da1fb9",
       "src": "https://github.com/mfussenegger/nvim-lint"
