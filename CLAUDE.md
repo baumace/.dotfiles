@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal dotfiles repository for a Wayland-based Linux desktop environment (Fedora/Arch). Configuration files are organized by tool, intended to be symlinked to their standard locations (`~/.config/` or home directory).
+This is a personal dotfiles repository for a Wayland-based Linux desktop environment (Arch). Configuration files are organized by tool, intended to be symlinked to their standard locations (`~/.config/` or home directory).
 
 ## Setup Commands
 
@@ -19,8 +19,7 @@ ln -sf ~/.dotfiles/nvim ~/.config/nvim
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Install Neovim
-sudo dnf install neovim  # Fedora
-sudo pacman -S neovim    # Arch
+sudo pacman -S neovim
 ```
 
 **Update configs:**
@@ -57,9 +56,7 @@ The repository uses a modular design where each tool has its own directory. Conf
 - Theme: Catppuccin Macchiato with transparency
 
 **Hyprland** (`hypr/hyprland.conf`):
-- Main window manager config sources monitor-specific configs
-- `monitor-docked.conf` and `monitor-laptop.conf` define display layouts
-- When editing monitor configs, understand both files define the same monitor IDs with different geometries
+- Main window manager config
 - Dwindle layout (tiling), Vim-style navigation (hjkl)
 - Super key as modifier
 - Autostart applications defined at end of config (mako, waybar)
@@ -76,13 +73,6 @@ The repository uses a modular design where each tool has its own directory. Conf
 - Right: system info (audio, network, CPU, memory, temp, battery, clock, power)
 - Color-coded thresholds for system metrics
 - Style uses custom classes in CSS for theming
-
-### Multi-Monitor Setup
-The Hyprland configuration supports two monitor profiles:
-- `monitor-laptop.conf`: Single eDP-1 display (laptop screen)
-- `monitor-docked.conf`: Dual monitor with external display
-
-Both files are sourced in `hyprland.conf`. When modifying monitor layouts, check which profile is active and edit the appropriate file.
 
 ## Common Development Patterns
 
@@ -103,12 +93,11 @@ All keybindings use the Super (Windows/Cmd) key as the primary modifier:
 - `Super+S`: Toggle scratchpad
 
 ### Theme Consistency
-The repository uses the Catppuccin theme across tools:
+The repository will use the Catppuccin theme across tools:
 - Neovim: `catppuccin-macchiato` flavor
-- Waybar: Custom CSS with Catppuccin-inspired colors
-- Hyprland: Border colors match theme
+- Other tools still need styling
 
-When making theme changes, maintain consistency across all three configs.
+When making theme changes, maintain consistency across all configs.
 
 ## Dependencies
 
@@ -122,7 +111,7 @@ When making theme changes, maintain consistency across all three configs.
 - `pyright` (Python LSP)
 - `htmlhint` (HTML linter)
 
-Install via system package manager or Mason.nvim if added.
+Install via system package manager.
 
 ## File Editing Guidelines
 
