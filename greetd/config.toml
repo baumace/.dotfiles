@@ -1,0 +1,7 @@
+[terminal]
+vt = 1
+
+[default_session]
+# Launch Hyprland via a zsh login shell so ~/.zprofile runs (which loads SSH keys).
+command = "tuigreet --time --remember --cmd 'zsh -l -c start-hyprland'"
+user = "greeter"

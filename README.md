@@ -18,6 +18,7 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
 
     ```bash
     ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
+    ln -sf ~/.dotfiles/zsh/.zprofile ~/.zprofile
     ln -sf ~/.dotfiles/nvim ~/.config/nvim
     ln -sf ~/.dotfiles/hypr ~/.config/hypr
     ln -sf ~/.dotfiles/waybar ~/.config/waybar
@@ -25,6 +26,7 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
     ln -sf ~/.dotfiles/mako ~/.config/mako
     ln -sf ~/.dotfiles/ghostty ~/.config/ghostty
     ln -sf ~/.dotfiles/tmux ~/.config/tmux
+    sudo ln -sf ~/.dotfiles/greetd/config.toml /etc/greetd/config.toml
     ```
 
 3. **Install Oh My Zsh (if needed):**
@@ -37,7 +39,8 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
 
     ```bash
     sudo pacman -S neovim hyprland waybar mako ghostty tmux wofi \
-                   playerctl pavucontrol brightnessctl
+                   playerctl pavucontrol \
+                   keychain hyprlock hypridle greetd greetd-tuigreet
     ```
 
 5. **Install Neovim LSP/linters:**
@@ -47,7 +50,13 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
     npm install -g htmlhint
     ```
 
-6. **Restart your terminal** and launch Hyprland to load your new configs.
+6. **Enable greetd** (login screen):
+
+    ```bash
+    sudo systemctl enable greetd.service
+    ```
+
+7. **Restart your terminal** and launch Hyprland to load your new configs.
 
 ---
 
@@ -83,6 +92,8 @@ Each tool has its own directory, symlinked to the standard XDG location:
 | `ghostty/` | `~/.config/ghostty/` |
 | `tmux/` | `~/.config/tmux/` |
 | `zsh/.zshrc` | `~/.zshrc` |
+| `zsh/.zprofile` | `~/.zprofile` |
+| `greetd/` | `/etc/greetd/config.toml` |
 
 ---
 

@@ -41,8 +41,10 @@ killall waybar && waybar &        # Restart Waybar
 The repository uses a modular design where each tool has its own directory. Configs are symlinked to standard XDG locations:
 - `~/.dotfiles/nvim/` → `~/.config/nvim/`
 - `~/.dotfiles/zsh/.zshrc` → `~/.zshrc`
+- `~/.dotfiles/zsh/.zprofile` → `~/.zprofile`
 - `~/.dotfiles/hypr/` → `~/.config/hypr/`
 - `~/.dotfiles/wofi/` → `~/.config/wofi/`
+- `~/.dotfiles/greetd/config.toml` → `/etc/greetd/config.toml`
 - Similar for waybar, ghostty, mako, tmux
 
 ### Key Configuration Files
@@ -64,7 +66,25 @@ The repository uses a modular design where each tool has its own directory. Conf
 - Autostart applications defined at end of config (mako, waybar)
 - `gaps_out` sets the gap between windows and the screen edge (currently `8` on all sides)
 
-**Zsh** (`zsh/.zshrc`):
+**Hyprlock** (`hypr/hyprlock.conf`):
+- Lock screen invoked via `Super+Backspace` or automatically by hypridle
+- Catppuccin Macchiato theme: blurred screenshot background, styled input field
+- Shows clock and username
+
+**Hypridle** (`hypr/hypridle.conf`):
+- Auto-locks after 5 minutes of idle (runs hyprlock)
+- Turns display off 30 seconds after locking
+- Locks before system sleep; restores display on wake
+- Started at Hyprland launch via `exec-once = hypridle`
+
+**Greetd** (`greetd/config.toml`):
+- Login screen replacing the raw TTY prompt, using tuigreet as the frontend
+- Launches Hyprland via `zsh -l -c start-hyprland` so `~/.zprofile` is sourced
+- Config lives in dotfiles and is symlinked to `/etc/greetd/config.toml` (requires sudo)
+- Enable with: `sudo systemctl enable greetd.service`
+
+**Zsh** (`zsh/.zshrc`, `zsh/.zprofile`):
+- `.zprofile` runs on login: auto-discovers and loads all SSH private keys (any file in `~/.ssh/` with a matching `.pub`) into the systemd-managed agent. New key pairs are picked up automatically.
 - Uses Oh My Zsh framework with `robbyrussell` theme
 - NVM and Pyenv initialization for Node/Python version management
 - Custom SSH auth socket configuration
@@ -100,6 +120,7 @@ All keybindings use the Super (Windows/Cmd) key as the primary modifier:
 - `Super+[1-0]`: Switch workspaces
 - `Super+Shift+[1-0]`: Move window to workspace
 - `Super+S`: Toggle scratchpad
+- `Super+Backspace`: Lock screen (hyprlock)
 
 ### Theme Consistency
 The repository uses the Catppuccin Macchiato theme across all tools. Color palette:
@@ -142,6 +163,7 @@ When styling wofi, waybar, or other GTK-based tools, be aware of these pitfalls:
 **Required system packages:**
 - Core: `zsh`, `neovim`, `hyprland`, `waybar`, `mako`, `ghostty`, `tmux`
 - Utilities: `wofi`, `playerctl`, `wpctl`, `brightnessctl`, `pavucontrol`
+- Login/lock: `greetd`, `greetd-tuigreet`, `hyprlock`, `hypridle`, `keychain`
 - Version managers: `nvm`, `pyenv`
 
 **Neovim LSP/Linters:**
