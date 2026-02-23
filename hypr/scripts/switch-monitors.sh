@@ -6,8 +6,7 @@
 HYPR_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/hypr"
 
 is_docked() {
-    grep -ql "^connected$" /sys/class/drm/card*-DP-4/status 2>/dev/null || \
-    grep -ql "^connected$" /sys/class/drm/card*-DP-6/status 2>/dev/null
+    grep -ql "^connected$" /sys/class/drm/card*-DP-*/status 2>/dev/null
 }
 
 if is_docked; then
