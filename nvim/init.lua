@@ -28,10 +28,20 @@ vim.o.expandtab = true
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 
+-- 2-space indents for JS/TS filetypes
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'css', 'html' },
+    callback = function()
+        vim.o.shiftwidth = 2
+        vim.o.tabstop = 2
+    end,
+})
+
 -- Plugins
 vim.pack.add({
     { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = 'https://github.com/mfussenegger/nvim-lint' },
+    { src = 'https://github.com/stevearc/conform.nvim' },
     { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     { src = 'https://github.com/catppuccin/nvim' },
@@ -51,17 +61,39 @@ require('colorizer').setup({
 vim.lsp.enable({
     'lua_ls',
     'pyright',
+    'ts_ls',
 })
 
 -- Linter
 require('lint').linters_by_ft = {
     html = { 'htmlhint' },
+    javascript = { 'eslint_d' },
+    javascriptreact = { 'eslint_d' },
+    typescript = { 'eslint_d' },
+    typescriptreact = { 'eslint_d' },
 }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     callback = function()
         require("lint").try_lint()
     end,
+})
+
+-- Formatter
+require('conform').setup({
+    formatters_by_ft = {
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        json = { 'prettier' },
+        css = { 'prettier' },
+        html = { 'prettier' },
+    },
+    format_on_save = {
+        timeout_ms = 2000,
+        lsp_fallback = true,
+    },
 })
 
 -- Color scheme

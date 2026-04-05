@@ -46,8 +46,8 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
 5. **Install Neovim LSP/linters:**
 
     ```bash
-    sudo pacman -S lua-language-server pyright
-    npm install -g htmlhint
+    sudo pacman -S lua-language-server pyright typescript-language-server
+    npm install -g htmlhint eslint_d
     ```
 
 6. **Enable greetd** (login screen):

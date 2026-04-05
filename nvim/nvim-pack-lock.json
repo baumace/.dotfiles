@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "conform.nvim": {
+      "rev": "40dcec5",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "neovim": {
       "rev": "72a04c4",
       "src": "https://github.com/rose-pine/neovim"
