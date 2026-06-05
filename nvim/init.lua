@@ -30,7 +30,7 @@ vim.o.tabstop = 4
 
 -- 2-space indents for JS/TS filetypes
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'css', 'html' },
+    pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'css', 'html', 'pug' },
     callback = function()
         vim.o.shiftwidth = 2
         vim.o.tabstop = 2
@@ -46,6 +46,7 @@ vim.pack.add({
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     { src = 'https://github.com/catppuccin/nvim' },
     { src = 'https://github.com/NvChad/nvim-colorizer.lua' },
+    { src = 'https://github.com/digitaltoad/vim-pug' },
 })
 
 -- Color previews
@@ -65,12 +66,27 @@ vim.lsp.enable({
 })
 
 -- Linter
+require('lint').linters['pug-lint'] = {
+    cmd = 'pug-lint',
+    stdin = false,
+    args = { '--reporter', 'inline' },
+    stream = 'stdout',
+    ignore_exitcode = true,
+    parser = require('lint.parser').from_pattern(
+        '[^:]+:(%d+):(%d+) (.+)',
+        { 'lnum', 'col', 'message' },
+        nil,
+        { severity = vim.diagnostic.severity.ERROR }
+    ),
+}
+
 require('lint').linters_by_ft = {
     html = { 'htmlhint' },
     javascript = { 'eslint_d' },
     javascriptreact = { 'eslint_d' },
     typescript = { 'eslint_d' },
     typescriptreact = { 'eslint_d' },
+    pug = { 'pug-lint' },
 }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {

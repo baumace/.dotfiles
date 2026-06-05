@@ -35,6 +35,10 @@
     "telescope.nvim": {
       "rev": "b4da76b",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "vim-pug": {
+      "rev": "ea39cd9",
+      "src": "https://github.com/digitaltoad/vim-pug"
     }
   }
 }
