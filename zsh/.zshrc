@@ -106,11 +106,18 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-export PATH="$HOME/.local/bin:$HOME/.local/share/roslyn-lsp/content/LanguageServer/linux-x64:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
+if command -v pyenv &>/dev/null; then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+fi
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
+
+# Attach to a persistent tmux session on every new interactive shell
+if [[ -z "$TMUX" && $- == *i* ]]; then
+    tmux new-session -A -s main
+fi

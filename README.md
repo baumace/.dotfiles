@@ -1,12 +1,12 @@
 # .dotfiles
 
-Personal configuration files for a Wayland-based Linux desktop environment (Arch), including [Neovim](https://neovim.io/), [Hyprland](https://hyprland.org/), [Waybar](https://github.com/Alexays/Waybar), [Wofi](https://hg.sr.ht/~scoopta/wofi), [zsh](https://www.zsh.org/), and more.
+Personal configuration files for a lightweight coding setup in WSL (Ubuntu), including [Neovim](https://neovim.io/), [zsh](https://www.zsh.org/), and [tmux](https://github.com/tmux/tmux).
 
-All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuccin) color theme.
+Neovim uses the Catppuccin Macchiato color theme.
 
 ---
 
-## Initial Setup (Arch Linux)
+## Initial Setup (WSL / Ubuntu)
 
 1. **Clone this repository:**
 
@@ -14,49 +14,47 @@ All configs use the [Catppuccin Macchiato](https://github.com/catppuccin/catppuc
     git clone git@github.com:baumace/.dotfiles.git ~/.dotfiles
     ```
 
-2. **Symlink config files:**
+2. **Install required packages:**
+
+    ```bash
+    sudo apt install -y zsh tmux
+    ```
+
+    Neovim on Ubuntu's apt repos is typically too old for this config (it uses `vim.pack`,
+    which needs Neovim 0.12+). Install the latest release directly instead:
+
+    ```bash
+    mkdir -p ~/.local/share ~/.local/bin
+    curl -sLO --output-dir ~/.local/share \
+      https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    tar xzf ~/.local/share/nvim-linux-x86_64.tar.gz -C ~/.local/share
+    rm ~/.local/share/nvim-linux-x86_64.tar.gz
+    ln -sf ~/.local/share/nvim-linux-x86_64/bin/nvim ~/.local/bin/nvim
+    ```
+
+3. **Symlink config files:**
 
     ```bash
     ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
     ln -sf ~/.dotfiles/zsh/.zprofile ~/.zprofile
     ln -sf ~/.dotfiles/nvim ~/.config/nvim
-    ln -sf ~/.dotfiles/hypr ~/.config/hypr
-    ln -sf ~/.dotfiles/waybar ~/.config/waybar
-    ln -sf ~/.dotfiles/wofi ~/.config/wofi
-    ln -sf ~/.dotfiles/mako ~/.config/mako
-    ln -sf ~/.dotfiles/ghostty ~/.config/ghostty
     ln -sf ~/.dotfiles/tmux ~/.config/tmux
-    sudo ln -sf ~/.dotfiles/greetd/config.toml /etc/greetd/config.toml
     ```
 
-3. **Install Oh My Zsh (if needed):**
+4. **Install Oh My Zsh (if needed):**
 
     ```bash
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ```
 
-4. **Install required packages:**
+5. **Set zsh as your default shell:**
 
     ```bash
-    sudo pacman -S neovim hyprland waybar mako ghostty tmux wofi \
-                   playerctl pavucontrol \
-                   keychain hyprlock hypridle greetd greetd-tuigreet
+    chsh -s $(which zsh)
     ```
 
-5. **Install Neovim LSP/linters:**
-
-    ```bash
-    sudo pacman -S lua-language-server pyright typescript-language-server
-    npm install -g htmlhint eslint_d
-    ```
-
-6. **Enable greetd** (login screen):
-
-    ```bash
-    sudo systemctl enable greetd.service
-    ```
-
-7. **Restart your terminal** and launch Hyprland to load your new configs.
+6. **Restart your terminal.** New shells attach straight into a shared tmux session
+   (see `zsh/.zshrc`); Neovim plugins auto-install via `vim.pack` on first launch.
 
 ---
 
@@ -69,11 +67,9 @@ git -C ~/.dotfiles pull origin main
 Then reload the relevant tool:
 
 ```bash
-exec zsh            # Reload shell
-hyprctl reload      # Reload Hyprland
-killall waybar && waybar &   # Restart Waybar
-# Wofi reads config fresh on each launch — no restart needed
-# Neovim plugins auto-install on next launch
+exec zsh             # Reload shell (re-attaches to tmux)
+tmux source-file ~/.config/tmux/tmux.conf   # Reload tmux config in place
+# Neovim plugins/config are read fresh on next launch
 ```
 
 ---
@@ -85,20 +81,17 @@ Each tool has its own directory, symlinked to the standard XDG location:
 | Directory | Symlink target |
 |-----------|---------------|
 | `nvim/` | `~/.config/nvim/` |
-| `hypr/` | `~/.config/hypr/` |
-| `waybar/` | `~/.config/waybar/` |
-| `wofi/` | `~/.config/wofi/` |
-| `mako/` | `~/.config/mako/` |
-| `ghostty/` | `~/.config/ghostty/` |
 | `tmux/` | `~/.config/tmux/` |
 | `zsh/.zshrc` | `~/.zshrc` |
 | `zsh/.zprofile` | `~/.zprofile` |
-| `greetd/` | `/etc/greetd/config.toml` |
 
 ---
 
 ## Notes
 
-- Adjust symlink commands to match any changes to the directory structure.
-- Hyprland config changes can prevent login if invalid — always test before committing.
+- `zsh/.zshrc` auto-attaches every new interactive shell to a shared tmux session named
+  `main` (`tmux new-session -A -s main`), so opening a new WSL terminal drops you straight
+  into tmux. Multiple terminal windows share and mirror the same session.
+- `zsh/.zprofile` loads SSH keys from `~/.ssh/` into the systemd-managed `ssh-agent`
+  (`systemctl --user status ssh-agent.socket`) once per login shell.
 - If your configs rely on specific plugins or tools, ensure those are installed as well.
